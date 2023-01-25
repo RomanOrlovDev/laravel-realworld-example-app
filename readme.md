@@ -82,6 +82,22 @@ Run the database seeder and you're done
     
 ## Docker
 
+Build an image from the following `Dockerfile`:
+```
+FROM php:7.4-fpm
+
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install -y git && \
+    apt-get install zip unzip && \
+    apt-get install -y procps && \
+    pecl install xdebug-3.1.2 && \
+    docker-php-ext-enable xdebug && \
+    docker-php-ext-install pdo_mysql
+
+COPY --from=composer:2.4.4 /usr/bin/composer /usr/local/bin/composer
+```
+
 To install with [Docker](https://www.docker.com), run following commands:
 
 ```
